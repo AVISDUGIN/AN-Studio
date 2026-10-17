@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AN-Studio | أخبار أسيتو كورسا والمجتمع</title>
+    
+    <!-- إعدادات شورت كات الجوال (Web App) -->
+    <meta name="theme-color" content="#e60000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AN-Studio">
+    <!-- أيقونة الاختصار للآيفون والأندرويد -->
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/808/808476.png">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/808/808476.png">
+
+    <!-- خطوط جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Teko:wght@700&display=swap" rel="stylesheet">
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #e60000; /* أحمر السباقات */
+            --primary-hover: #cc0000;
+            --discord: #5865F2; /* لون الديسكورد الرسمي */
+            --discord-hover: #4752c4;
+            --bg-dark: #0a0a0c;
+            --bg-card: #151518;
+            --bg-lighter: #1f1f23;
+            --text-light: #ffffff;
+            --text-gray: #a0a0a0;
+            --border-color: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); }
+
+        /* شريط التنقل */
+        header {
+            background: rgba(10, 10, 12, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Teko', sans-serif;
+            font-size: 34px;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* زر الديسكورد في الناف بار */
+        .nav-discord-btn {
+            background-color: var(--discord) !important;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-discord-btn:hover {
+            background-color: var(--discord-hover) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* الهيرو */
+        .hero {
+            margin-top: 70px;
+            height: 75vh;
+            background: linear-gradient(to top, var(--bg-dark) 0%, rgba(10,10,12,0.4) 100%), 
+                        url('https://images.unsplash.com/photo-1547038577-323da6d36e0d?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 60px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            transform: skewX(-10deg);
+        }
+
+        .badge span { display: block; transform: skewX(10deg); }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 600px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            transform: skewX(-10deg);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn span { display: flex; align-items: center; gap: 8px; transform: skewX(10deg); }
+        .btn:hover { background-color: var(--primary-hover); transform: skewX(-10deg) scale(1.05); }
+
+        .btn-discord {
+            background-color: var(--discord);
+        }
+        .btn-discord:hover {
+            background-color: var(--discord-hover);
+        }
+
+        /* الأقسام العامة */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            border-right: 5px solid var(--primary);
+            padding-right: 15px;
+            display: inline-block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* شبكة الأخبار */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .news-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .news-card:hover .news-img { transform: scale(1.05); }
+
+        .img-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .news-content { padding: 20px; }
+
+        .news-date {
+            color: var(--text-gray);
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .news-card:hover h3 { color: var(--primary); }
+        .news-content p { color: var(--text-gray); font-size: 0.95rem; }
+
+        /* قسم الديسكورد المخصص */
+        .discord-section {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.15) 0%, var(--bg-card) 100%);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            border-radius: 12px;
+            padding: 50px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .discord-info h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .discord-info p {
+            color: #ccc;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
+
+        .discord-icon-large {
+            font-size: 120px;
+            color: var(--discord);
+            opacity: 0.8;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.08); opacity: 1; }
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: #050505;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-icons { margin: 20px 0; }
+
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 24px;
+            margin: 0 12px;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover { color: var(--discord); }
+
+        /* التجاوب مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: rgba(10,10,12,0.98);
+                width: 100%;
+                height: calc(100vh - 70px);
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: block; }
+            .hero-title { font-size: 2.3rem; }
+            
+            .discord-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .discord-icon-large {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الناف بار -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">AN-<span>STUDIO</span></a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="#news">الأخبار</a></li>
+                <li><a href="#esports">البطولات</a></li>
+                <li>
+                    <a href="https://discord.gg/4CpaSPzzX" target="_blank" class="nav-discord-btn">
+                        <i class="fab fa-discord"></i> سيرفر الديسكورد
+                    </a>
+                </li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- الخبر الرئيسي -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge"><span>تسريبات عاجلة</span></div>
+            <h1 class="hero-title">تأكيد موعد إطلاق Assetto Corsa 2 في 2026!</h1>
+            <p class="hero-desc">استوديو Kunos Simulazioni يكشف أخيراً عن الإطار الزمني لإطلاق الجزء المنتظر، مع محرك رسوميات جديد كلياً يتخلى عن Unreal Engine.</p>
+            
+            <div class="hero-btns">
+                <a href="#news" class="btn">
+                    <span>اقرأ التفاصيل <i class="fas fa-angle-left"></i></span>
+                </a>
+                <a href="https://discord.gg/4CpaSPzzX" target="_blank" class="btn btn-discord">
+                    <span><i class="fab fa-discord"></i> انضم لسيرفر الديسكورد</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- أحدث الأخبار -->
+    <section class="container" id="news">
+        <h2 class="section-title">أحدث الأخبار والتحديثات</h2>
+        
+        <div class="news-grid">
+            <!-- خبر 1 -->
+            <article class="news-card">
+                <div class="img-container">
+                    <span class="card-badge">تحديث رسمي</span>
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop" alt="ACC Update" class="news-img">
+                </div>
+                <div class="news-content">
+                    <div class="news-date"><i class="far fa-clock"></i> قبل ساعتين</div>
+                    <h3>إطلاق حزمة Nordschleife 24h للعبة ACC</h3>
+                    <p>التحديث الجديد يجلب الحلبة الأسطورية (الجحيم الأخضر) بتفاصيل ليزر دقيقة ومحاكاة كاملة لسباق 24 ساعة.</p>
+                </div>
+            </article>
+
+            <!-- خبر 2 -->
+            <article class="news-card">
+                <div class="img-container">
+                    <span class="card-badge">جرافيكس</span>
+                    <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?q=80&w=2071&auto=format&fit=crop" alt="Pure Weather" class="news-img">
+                </div>
+                <div class="news-content">
+                    <div class="news-date"><i class="far fa-clock"></i> أمس</div>
+                    <h3>تحديث جديد لمود الطقس Pure 0.238</h3>
+                    <p>تحديث جديد يحسن من انعكاسات الأمطار والغيوم ثلاثية الأبعاد بشكل جذري داخل المحاكي.</p>
+                </div>
+            </article>
+
+            <!-- خبر 3 -->
+            <article class="news-card">
+                <div class="img-container">
+                    <span class="card-badge">بطولات المجتمعات</span>
+                    <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=2042&auto=format&fit=crop" alt="Sim Racing Setup" class="news-img">
+                </div>
+                <div class="news-content">
+                    <div class="news-date"><i class="far fa-clock"></i> اليوم</div>
+                    <h3>بطولة AN-Studio الأسبوعية - سجل الآن!</h3>
+                    <p>انضمت سيرفرات جديدة لبطولتنا الأسبوعية، يمكنك التسجيل والمشاركة مباشرة من خلال سيرفر الديسكورد.</p>
+                </div>
+            </article>
+        </div>
+
+        <!-- قسم الديسكورد الرئيسي -->
+        <div class="discord-section" id="discord">
+            <div class="discord-info">
+                <h2>انضم إلى مجتمع AN-Studio على Discord! 🏎️</h2>
+                <p>شارك في السباقات اليومية، واحصل على أفضل الإعدادات (Setups) للسيارات، وتواصل مع أسرع المتسابقين العرب في أسيتو كورسا.</p>
+                <a href="https://discord.gg/4CpaSPzzX" target="_blank" class="btn btn-discord">
+                    <span><i class="fab fa-discord"></i> دخول السيرفر الآن</span>
+                </a>
+            </div>
+            <div class="discord-icon-large">
+                <i class="fab fa-discord"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <a href="#" class="logo">AN-<span>STUDIO</span></a>
+        <div class="social-icons">
+            <a href="https://discord.gg/4CpaSPzzX" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p style="color: var(--text-gray); font-size: 14px;">© 2026 AN-Studio - جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- جافاسكربت -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if(navLinks.classList.contains('active')){
+                menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(5, 5, 6, 0.98)';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.5)';
+            } else {
+                header.style.background = 'rgba(10, 10, 12, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
